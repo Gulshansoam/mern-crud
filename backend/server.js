@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
 const workoutRoutes = require("./routes/workouts");
 // express app
 const app = express();
@@ -14,7 +15,29 @@ app.use((req, res, next) => {
 // routes
 app.use("/api/workouts", workoutRoutes);
 
-// listen for request
-app.listen(process.env.PORT, () => {
-  console.log(`This server is running on port ${process.env.PORT}`);
-});
+// // connect to db
+// mongoose
+//   .connect("mongodb://localhost:27017/mern-crud?retryWrites=true&w=majority")
+//   .then(() => {
+//     // listen for request
+//     app.listen(process.env.PORT, () => {
+//       console.log(`This server is running on port ${process.env.PORT}`);
+//     });
+//   })
+//   .catch((error) => {
+//     console.log("error occurred in db connection", error);
+//   });
+
+mongoose
+  .connect("mongodb://localhost:27017/mern-crud?retryWrites=true&w=majority", {
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log("DB connection successful!");
+    app.listen(process.env.PORT, () => {
+      console.log(`This server is running on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Error", err);
+  });
