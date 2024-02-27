@@ -10,13 +10,11 @@ const WorkoutForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const workoutPayload = { title, reps, load };
-
     const response = await fetch("/api/workouts", {
       method: "POST",
       body: JSON.stringify(workoutPayload),
       headers: { "Content-Type": "application/json" },
     });
-
     const json = await response.json();
     if (!response.ok) setError(json.error);
     else {
