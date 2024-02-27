@@ -2,8 +2,7 @@ import React from "react";
 
 const WorkoutDetailComponent = (props) => {
   const { workout, key } = props;
-  console.log(workout, "workout");
-  console.log(key, "key");
+
   return (
     <div className="workout-details">
       <h4>{workout.title}</h4>
