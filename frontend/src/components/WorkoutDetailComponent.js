@@ -1,7 +1,9 @@
 import React from "react";
 import { useWorkoutContext } from "../hooks/useWorkoutsContext";
+import fromatDistanceToNow from "date-fns/formatDistanceToNow";
+
 const WorkoutDetailComponent = (props) => {
-  const { workout, key } = props;
+  const { workout } = props;
   const { dispatch } = useWorkoutContext();
 
   const handleDelete = async () => {
@@ -24,8 +26,12 @@ const WorkoutDetailComponent = (props) => {
         <strong>Reps: </strong>
         {workout.reps}
       </p>
-      <p>{workout.createdAt}</p>
-      <span onClick={handleDelete}>DELETE</span>
+      <p>
+        {fromatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}
+      </p>
+      <span className="material-symbols-outlined" onClick={handleDelete}>
+        DELETE
+      </span>
     </div>
   );
 };
